@@ -23,6 +23,7 @@ time.sleep(10)
 
 # Descobrindo e buscando chaves:
 def buscandochaves(cod_chave, cod_xpath):
+    global chaves_preenchidas
     elementos_chave = driver.find_elements(By.NAME, cod_chave)
     if elementos_chave:
         buscarchave = str(driver.find_element(By.XPATH, cod_xpath).text)
@@ -34,8 +35,7 @@ def buscandochaves(cod_chave, cod_xpath):
                 if solicitacao == buscarchave and chave:
                     driver.find_element(By.NAME, cod_chave).clear()
                     driver.find_element(By.NAME, cod_chave).send_keys(chave)
-                    chaves_adicionadas = chaves_adicionadas + 1
-                    return chaves_adicionadas
+                    chaves_preenchidas = chaves_preenchidas + 1
     else:
         print('Elemento não encontrando, buscando outras chaves para pesquisar') 
 
@@ -43,7 +43,7 @@ def buscandochaves(cod_chave, cod_xpath):
 total_paginas = 1
         
 while True:
-    chaves_adicionadas = 0
+    chaves_preenchidas = 0
     buscandochaves('Chave0', '//*[@id="tblConfirmacao0"]/tbody/tr[1]/td[1]/center/b')
     buscandochaves('Chave1', '//*[@id="tblConfirmacao1"]/tbody/tr[1]/td[1]/center/b')
     buscandochaves('Chave2', '//*[@id="tblConfirmacao2"]/tbody/tr[1]/td[1]/center/b')
@@ -94,13 +94,12 @@ while True:
     buscandochaves('Chave47', '//*[@id="tblConfirmacao47"]/tbody/tr[1]/td[1]/center/b')
     buscandochaves('Chave48', '//*[@id="tblConfirmacao48"]/tbody/tr[1]/td[1]/center/b')
     buscandochaves('Chave49', '//*[@id="tblConfirmacao49"]/tbody/tr[1]/td[1]/center/b') 
-    if chaves_adicionadas == 0:
+    if chaves_preenchidas == 0:
         total_paginas = total_paginas + 1
         driver.find_element(By.XPATH, '//*[@id="main_page"]/form/center[3]/table/tbody/tr/td/input').clear()
         driver.find_element(By.XPATH, '//*[@id="main_page"]/form/center[3]/table/tbody/tr/td/input').send_keys(str(total_paginas))
         pyautogui.press('enter')
-        time.sleep(10)
-    else: 
+    else:
         pyautogui.alert(text='Responda o catpcha e aperte OK para finalizar', title='Confirmações', button='OK')
         driver.find_element(By.NAME, "btnConfirmar").click()
         total_paginas = total_paginas + 1
@@ -108,4 +107,3 @@ while True:
         driver.find_element(By.XPATH, '//*[@id="main_page"]/form/center[3]/table/tbody/tr/td/input').clear()
         driver.find_element(By.XPATH, '//*[@id="main_page"]/form/center[3]/table/tbody/tr/td/input').send_keys(str(total_paginas))
         pyautogui.press('enter')
-        time.sleep(10)
