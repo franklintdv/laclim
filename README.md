@@ -7,5 +7,3 @@ Cadastrar prontuário e exames no sistema Easylab conferindo o arquivo sisreg.cs
 Automação usando o Selenium e o PyAutoGui para confirmar os exames realizados.
 ## LIMPAR_EXAMES.py
 Apagar os exames duplicados no arquivo exames.csv
-## SISREG.py
-Unir os arquivos com os agendamentos no site do SISREG
